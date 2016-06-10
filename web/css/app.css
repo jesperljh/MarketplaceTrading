@@ -1,0 +1,205 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : May 17, 2016, 11:05:43 AM
+    Author     : jesperlim
+*/
+
+/*** carosel ***/
+.carousel inner > .item > img,
+.carousel inner > .item > a > img{
+    width: 100% ; /* use this, or not */
+    margin: auto;
+}
+
+/* navbar vertical divider */
+/*.navbar .divider-vertical {
+height: 40px;
+margin: 0 9px;
+border-left: 1px solid #f2f2f2;
+border-right: 1px solid #ffffff;
+}*/
+
+/*** login ***/
+@media (min-width: 768px) {
+    .omb_row-sm-offset-3 div:first-child[class*="col-"] {
+        margin-left: 25%;
+    }
+}
+
+.omb_login .omb_authTitle {
+    text-align: center;
+    line-height: 300%;
+}
+
+.omb_login .omb_socialButtons a {
+    color: white; /* In yourUse @body-bg */
+    opacity:0.9;
+}
+.omb_login .omb_socialButtons a:hover {
+    color: white;
+    opacity:1;    	
+}
+.omb_login .omb_socialButtons .omb_btn-facebook {background: #3b5998;}
+.omb_login .omb_socialButtons .omb_btn-twitter {background: #00aced;}
+.omb_login .omb_socialButtons .omb_btn-google {background: #c32f10;}
+
+
+.omb_login .omb_loginOr {
+    position: relative;
+    font-size: 1.5em;
+    color: #aaa;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+}
+.omb_login .omb_loginOr .omb_hrOr {
+    background-color: #cdcdcd;
+    height: 1px;
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+}
+.omb_login .omb_loginOr .omb_spanOr {
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: -0.6em;
+    margin-left: -1.5em;
+    background-color: white;
+    width: 4em;
+    text-align: center;
+}			
+
+.omb_login .omb_loginForm .input-group.i {
+    width: 2em;
+}
+.omb_login .omb_loginForm  .help-block {
+    color: red;
+}
+
+
+@media (min-width: 768px) {
+    .omb_login .omb_forgotPwd {
+        text-align: right;
+        margin-top:10px;
+    }		
+}
+
+
+/*** itemDetails ***/
+.thumbnail img {
+    width: 100%;
+}
+
+.ratings {
+    padding-right: 10px;
+    padding-left: 10px;
+    color: #d17581;
+}
+
+.thumbnail {
+    padding: 0;
+}
+
+.thumbnail .caption-full {
+    padding: 9px;
+    color: #333;
+}
+
+/*** shop ***/
+.slide-image {
+    width: 100%;
+}
+
+.carousel-holder {
+    margin-bottom: 30px;
+}
+
+.carousel-control,
+.item {
+    border-radius: 4px;
+}
+
+.caption {
+    height: 130px;
+    overflow: hidden;
+}
+
+.caption h4 {
+    white-space: nowrap;
+}
+
+.thumbnail img {
+    width: 100%;
+}
+
+.ratings {
+    padding-right: 10px;
+    padding-left: 10px;
+    color: #d17581;
+}
+
+.thumbnail {
+    padding: 0;
+}
+
+.thumbnail .caption-full {
+    padding: 9px;
+    color: #333;
+}
+
+/*** ribbon **/
+.ribbon {
+    padding: .34em 1em;
+    margin: 0;
+    margin-top: 5%;
+    position:relative;
+    color: #ffffff;
+    font: 16px 'Patua One', sans-serif;
+    text-align: center;
+    letter-spacing:0.1em;
+    text-shadow: 0px -1px 0px rgba(0,0,0,0.3);
+    box-shadow: inset 0px 1px 0px rgba(255,255,255,.3),
+        inset 0px 0px 20px rgba(0,0,0,0.1),
+        0px 1px 1px rgba(0,0,0,0.4);
+    background: -webkit-linear-gradient(top,#1eb2df, #17a7d2);
+    display: inline-block;
+    margin-left: -0.6em;
+}
+
+.ribbon:before{
+    content: "";
+    width:.2em;
+    bottom:-.5em;
+    position:absolute;
+    display:block;
+    border: .9em solid #1eb2df;
+    box-shadow:0px 1px 0px rgba(0,0,0,0.4);
+    z-index:-2;
+}
+
+.ribbon:before {
+    left:-1.15em;
+    border-right-width: .8em;
+    border-left-color:transparent;
+}
+
+
+.ribbon .content:before {
+    content:"";
+    bottom:-.5em;
+    position:absolute;
+    display:block;
+    border-style:solid;
+    border-color: #0675b3 transparent transparent transparent;
+    z-index:-1;
+}
+
+.ribbon .content:before {
+    left: 0;
+    border-width: .5em 0 0 .5em;
+}
