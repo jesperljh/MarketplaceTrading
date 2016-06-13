@@ -51,9 +51,9 @@
                     <div class="thumbnail">
                         <div class="report" id="<%= p.getProductID()%>">
                             <%
-                                if(p.isReport()){
+                                if (p.isReport()) {
                                     out.println("<button type='button' disabled class='btn btn-danger pull-right' style='margin-top: 10px; margin-right: 5px'>Reported!</button>");
-                                }else{
+                                } else {
                                     out.println("<button type='button' class='btn btn-danger pull-right' style='margin-top: 10px; margin-right: 5px'>Report!</button>");
                                 }
                             %>
@@ -179,34 +179,34 @@
         </div>
         <!-- /.container -->
 
-        <hr>
-
-        <!-- Footer -->
-        <footer>
-            <div class="row">
-                <div class="col-lg-12">
-                    <p>Copyright &copy; KTPH 2014</p>
+        <<div class="container">
+            <hr>
+            <!-- Footer -->
+            <footer>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <p>Copyright &copy; KTPH 2016</p>
+                    </div>
                 </div>
-            </div>
-        </footer>
+            </footer>
 
-    </div>
-    <!-- /.container -->
+        </div>
+        <!-- /.container -->
 
-    <!-- all scripts -->
-    <%@include file="/includes/all_script.jsp" %>
+        <!-- all scripts -->
+        <%@include file="/includes/all_script.jsp" %>
 
-    <script>
-        /*$(document).ready(function () {
-         $submit.click(function (event)) {
-         var comment = $('#comment').val();
-         //var comment_by = $('comment_by').val();
-         //var product_id = $('product_id').val();
-         $.get('CommentServlet', {comm: comment}, function (responseText) {
-         $('#comments').text(responseText);
-         });
-         });
-         });*/
-    </script>
-</body>
+        <script>
+            /*$(document).ready(function () {
+             $submit.click(function (event)) {
+             var comment = $('#comment').val();
+             //var comment_by = $('comment_by').val();
+             //var product_id = $('product_id').val();
+             $.get('CommentServlet', {comm: comment}, function (responseText) {
+             $('#comments').text(responseText);
+             });
+             });
+             });*/
+        </script>
+    </body>
 </html>

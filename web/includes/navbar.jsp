@@ -50,6 +50,9 @@
                 <li>
                     <a href="myItem.jsp">My Items</a>
                 </li>
+                <li>
+                    <a href="myMessage.jsp">Inbox</a>
+                </li>
                 <%
                     User user = (User) session.getAttribute("user");
                     if (user.getUsername().equals("jesper")) {
