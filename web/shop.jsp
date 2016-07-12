@@ -52,7 +52,27 @@
                 text-decoration: none;
             }
         </style>
-
+        <%
+            ArrayList<String> categories = new ArrayList<String>();
+            categories.add("Adult Diapers and Incontinence Care");
+            categories.add("Bath and Toilet");
+            categories.add("Catheters, Tubes and Aids");
+            categories.add("Dental Care");
+            categories.add("Guards and Supports");
+            categories.add("Healthy Food and Supplements");
+            categories.add("Hospital Beds and Accessories");
+            categories.add("Independent Living Aids");
+            categories.add("Medical Equipments and Accessories");
+            categories.add("Minor Ailment");
+            categories.add("Nutritional Feeds");
+            categories.add("Pain Relief");
+            categories.add("Pressure Relief");
+            categories.add("Skin and Body Care");
+            categories.add("Sports and Exercise");
+            categories.add("Walking Aids");
+            categories.add("Wheelchairs and Accessories");
+            categories.add("Wound Care");
+        %>
         <!-- Page Content -->
         <div class="container">
 
@@ -61,9 +81,17 @@
                 <div class="col-md-3">
                     <p class="lead">Categories</p>
                     <div class="list-group">
-                        <a href="#" class="list-group-item">Category 1</a>
-                        <a href="#" class="list-group-item">Category 2</a>
-                        <a href="#" class="list-group-item">Category 3</a>
+                        <%
+                            for (int i = 0; i < categories.size(); i++) {
+                                String c = categories.get(i);
+                        %>
+                           <% if (Integer.parseInt(request.getParameter("cat")) == i) {
+                                   out.print("<a href='shop.jsp?cat=" + i + "' class='list-group-item active'>" + c + "</a>");
+                           }else{
+                               out.print("<a href='shop.jsp?cat=" + i + "' class='list-group-item'>" + c + "</a>");
+                           }
+                           %>
+                        <% }%>
                     </div>
                 </div>
 
@@ -99,11 +127,8 @@
                         </div>
 
                     </div>
-                </div>
-            </div>
 
-            <div class="row">
-                <div class="col-xs-offset-3 col-xs-9">
+
                     <div class="row" style="padding-bottom: 20px">
                         <form>
                             <div class="input-group">
@@ -128,9 +153,10 @@
 
                         <%
                             ProductDAO productDAO = new ProductDAO();
-                            ArrayList<Product> productList = productDAO.getShopProduct();
+                            int cat = Integer.parseInt(request.getParameter("cat"));
+                            ArrayList<Product> productList = productDAO.getShopProduct(cat);
                             String search = request.getParameter("search");
-                            if(search != null && !search.equals("")){
+                            if (search != null && !search.equals("")) {
                                 productList = productDAO.getShopProductByName(search);
                             }
                             for (int i = 0; i < productList.size(); i++) {

@@ -1,18 +1,13 @@
 <%-- 
-    Document   : myMessage
-    Created on : Jun 13, 2016, 10:15:07 AM
+    Document   : myDraftMessage
+    Created on : Jun 21, 2016, 4:44:50 PM
     Author     : jesperlim
 --%>
 
+<%@page import="dao.MessageDAO"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="entity.Message"%>
-<%@page import="dao.MessageDAO"%>
-<%@page import="dao.CommentDAO"%>
-<%@page import="entity.Comment"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="java.text.DecimalFormat"%>
-<%@page import="entity.Product"%>
-<%@page import="dao.ProductDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -43,6 +38,7 @@
             .ad a.title {color: #15C;text-decoration: none;font-weight: bold;font-size: 110%;}
             .ad a.url {color: #093;text-decoration: none;}
         </style>
+        
         <script>
             function reply_message() {
                 alert("reply message");
@@ -55,10 +51,11 @@
                 document.myForm.submit();
             }
         </script>
+
         <div class="container">
             <%
                 User user = (User) session.getAttribute("user");
-                ArrayList<Message> messageList = MessageDAO.retrieveMessage(user.getUsername());
+                ArrayList<Message> messageList = MessageDAO.retrieveDraftMessage(user.getUsername());
 
             %>
             <div class="row">
@@ -99,12 +96,12 @@
                     <a href="#" class="btn btn-danger btn-sm btn-block" data-toggle="modal" data-target="#modalCompose" role="button">COMPOSE</a>
                     <hr />
                     <ul class="nav nav-pills nav-stacked">
-                        <li class="active"><a href="myMessage.jsp">
+                        <li><a href="myMessage.jsp">
                                 <!--<span class="badge pull-right">42</span>--> 
                                 Inbox </a>
                         </li>
                         <!--<li><a href="#">Sent Mail</a></li>-->
-                        <li><a href="myDraftMessage.jsp">
+                        <li class="active"><a href="myDraftMessage.jsp">
                                 <!--<span class="badge pull-right">3</span>-->
                                 Drafts</a>
                         </li>
@@ -135,7 +132,7 @@
                                         Message m = messageList.get(i);
                                         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd-hh.mm.ss");
                                 %>
-                                <a href="myMessage.jsp?id=<%= m.getMessage_id()%>" class="list-group-item">
+                                <a href="myDraftMessage.jsp?id=<%= m.getMessage_id()%>" class="list-group-item">
                                     <div class="checkbox">
                                         <label>
                                             <input type="checkbox">
@@ -151,45 +148,15 @@
                                     </span>-->
                                 </a>
                                 <%}%>
-                                <!--<a href="#" class="list-group-item">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox">
-                                        </label>
-                                    </div>
-                                    <span class="glyphicon glyphicon-star-empty"></span><span class="name" style="min-width: 120px;
-                                                                                              display: inline-block;">Bhaumik Patel</span> <span class="">This is big title</span>
-                                    <span class="text-muted" style="font-size: 11px;">- Hi hello how r u ?</span> <span
-                                        class="badge">12:10 AM</span> <span class="pull-right"><span class="glyphicon glyphicon-paperclip">
-                                        </span></span></a><a href="#" class="list-group-item read">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox">
-                                        </label>
-                                    </div>
-                                    <span class="glyphicon glyphicon-star"></span><span class="name" style="min-width: 120px;
-                                                                                        display: inline-block;">Bhaumik Patel</span> <span class="">This is big title</span>
-                                    <span class="text-muted" style="font-size: 11px;">- Hi hello how r u ?</span> <span
-                                        class="badge">12:10 AM</span> <span class="pull-right"><span class="glyphicon glyphicon-paperclip">
-                                        </span></span></a>-->
                             </div>
                         </div>
-                        <!--<div class="tab-pane fade in" id="profile">
-                            <div class="list-group">
-                                <div class="list-group-item">
-                                    <span class="text-center">This tab is empty.</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab-pane fade in" id="messages">
-                            ...</div>-->
                         <div class="tab-pane fade in" id="settings">
                             This tab is empty.</div>
                     </div>
                     <%
                     } else {
                         Message message = MessageDAO.retrieveMessageTitle(user.getUsername(), Integer.parseInt(id));
-                        ArrayList<Message> mList = MessageDAO.retrieveMessageByTitle(user.getUsername(), message.getTitle());
+                        Message m = MessageDAO.retrieveDraftMessageByTitle(user.getUsername(), message.getTitle());
                     %>
                     <div class="row">
                         <div class="col-lg-12">
@@ -198,36 +165,25 @@
                         </div>
                     </div>
                     <%
-                        for (int i = 0; i < mList.size(); i++) {
-                            Message m = mList.get(i);
-                            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd-hh.mm.ss");
+                        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd-hh.mm.ss");
                     %>
-                    <div class="list-group">
-                        <h4 class="list-group-item-heading">
-                            <span class="name" style="min-width: 120px; display: inline-block;"><%= m.getSender().equals(user.getUsername()) ? m.getReceiver() : m.getSender()%></span> 
-                            <span class="badge"><%= formatter.format(m.getMessage_date().getTime())%></span> 
-                        </h4>
-                        <p class="list-group-item-text"><%= m.getMessage()%></p>  
-                    </div>
-                    <%
-                        }
-                    %>
-                    <form id="myForm" name="myForm" action='SendMessageServlet'>
+                    <form id="myForm" name="myForm" action='UpdateMessageServlet'>
                         <input type = "hidden" value ="<%= user.getUsername()%>" name='user'>
-                        <input type="hidden" name="to" value="<%= message.getSender().equals(user.getUsername()) ? message.getReceiver() : message.getSender()%>" >
+                        <h4 style="padding-top: 30px" class="col-sm-12" for="inputBody">Send to : <b><%= m.getSender().equals(user.getUsername()) ? m.getReceiver() : m.getSender()%></b></h4>
+                        <input type="hidden" class="form-control" name="to" value="<%= m.getSender().equals(user.getUsername()) ? m.getReceiver() : m.getSender()%>">    
                         <input type="hidden" class="form-control" name="subject" value="<%= message.getTitle()%>">
+                        <input type="hidden" class="form-control" name="id" value="<%= id %>">
                         <input type="hidden" class="form-control" name="status" id="status">
                         <div class="form-group">
                             <label style="padding-top: 30px" class="col-sm-12" for="inputBody">Message</label>
-                            <div class="col-sm-12"><textarea class="form-control" name="body" rows="18"></textarea></div>
+                            <div class="col-sm-12"><textarea class="form-control" name="body" rows="18"><%= m.getMessage()%></textarea></div>
                         </div>
                         <div class="modal-footer">
                             <a href="myMessage.jsp" type="button" style="margin-top:10px" class="btn btn-default pull-left" data-dismiss="modal">Cancel</a> 
-                            <button onclick="javascript: reply_draft_message();" id="draft" type="button" style="margin-top:10px" class="btn btn-warning pull-left">Save Draft</button>
-                            <button onclick="javascript: reply_message();" id="reply" type="button" style="margin-top:10px" class="btn btn-primary">Reply <i class="fa fa-arrow-circle-right fa-lg"></i></button>
+                            <button onclick="javascript: reply_draft_message();" type="button" style="margin-top:10px" class="btn btn-warning pull-left">Save Draft</button>
+                            <button onclick="javascript: reply_message();" type="button" style="margin-top:10px" class="btn btn-primary">Reply <i class="fa fa-arrow-circle-right fa-lg"></i></button>
                         </div>
                     </form>
-
                     <%
                         }
                     %>

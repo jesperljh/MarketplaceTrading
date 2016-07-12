@@ -62,7 +62,7 @@ public class ProductDAO {
         }
     }
 
-    public ArrayList<Product> getShopProduct() {
+    public ArrayList<Product> getShopProduct(int cat) {
         ArrayList<Product> productList = new ArrayList<Product>();
 
         Connection conn = null;
@@ -72,7 +72,7 @@ public class ProductDAO {
         try {
 
             conn = ConnectionManager.getConnection();
-            stmt = conn.prepareStatement("select * from product where product_status = false Order By posted_date desc");
+            stmt = conn.prepareStatement("select * from product where product_status = false AND category = " + cat + " Order By posted_date desc");
 
             rs = stmt.executeQuery();
 

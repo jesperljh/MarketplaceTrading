@@ -4,6 +4,7 @@
     Author     : jesperlim
 --%>
 
+<%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -17,11 +18,11 @@
     </head>
     <body>
         <%
-            if(session.getAttribute("user") == null){
+            if (session.getAttribute("user") == null) {
                 response.sendRedirect("login.jsp");
                 return;
             }
-            %>
+        %>
         <%@include file="/includes/navbar.jsp" %>
         <style>
             .img-caption{
@@ -64,7 +65,7 @@
                         <input type="text" class="form-control" name="productName" />
                     </div>
                 </div>
-        
+
                 <div class="form-group row">
                     <label class="col-xs-3 control-label">Description</label>
                     <div class="col-xs-8">
@@ -94,17 +95,38 @@
                         </select>
                     </div>
                 </div>
-
+                <%
+                    ArrayList<String> categories = new ArrayList<String>();
+                    categories.add("Adult Diapers and Incontinence Care");
+                    categories.add("Bath and Toilet");
+                    categories.add("Catheters, Tubes and Aids");
+                    categories.add("Dental Care");
+                    categories.add("Guards and Supports");
+                    categories.add("Healthy Food and Supplements");
+                    categories.add("Hospital Beds and Accessories");
+                    categories.add("Independent Living Aids");
+                    categories.add("Medical Equipments and Accessories");
+                    categories.add("Minor Ailment");
+                    categories.add("Nutritional Feeds");
+                    categories.add("Pain Relief");
+                    categories.add("Pressure Relief");
+                    categories.add("Skin and Body Care");
+                    categories.add("Sports and Exercise");
+                    categories.add("Walking Aids");
+                    categories.add("Wheelchairs and Accessories");
+                    categories.add("Wound Care");
+                %>
                 <div class="form-group row">
                     <label class="col-xs-3 control-label">Category</label>
                     <div class="col-xs-5 selectContainer">
                         <select class="form-control" name="category">
                             <option value="">Choose a Category</option>
-                            <option value="1">Cat 1</option>
-                            <option value="2">Cat 2</option>
-                            <option value="3">Cat 3</option>
-                            <option value="4">Cat 4</option>
-                            <option value="5">Cat 5</option>
+                            <%
+                                for (int i = 0; i < categories.size(); i++) {
+                                    String c = categories.get(i);
+                            %>
+                            <option value="<%= i %>"><%= c%></option>
+                            <% }%>
                         </select>
                     </div>
                 </div>

@@ -29,7 +29,7 @@
                     <a href="index.jsp">Home</a>
                 </li>
                 <li>
-                    <a href="shop.jsp">Shop</a>
+                    <a href="shop.jsp?cat=0">Shop</a>
                 </li>
                 <li>
                     <a href="sell.jsp">Sell</a>

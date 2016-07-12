@@ -18,8 +18,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author jesperlim
  */
-@WebServlet(name = "SendMessageServlet", urlPatterns = {"/SendMessageServlet"})
-public class SendMessageServlet extends HttpServlet {
+@WebServlet(name = "UpdateMessageServlet", urlPatterns = {"/UpdateMessageServlet"})
+public class UpdateMessageServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,17 +33,18 @@ public class SendMessageServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+
         String to = request.getParameter("to");
         String subject = request.getParameter("subject");
         String body = request.getParameter("body");
         String user = request.getParameter("user");
         String status = request.getParameter("status");
+        int id = Integer.parseInt(request.getParameter("id"));
         boolean s = true;
-        if(status.equals("false")){
+        if (status.equals("false")) {
             s = false;
         }
-        MessageDAO.addMessage(user, to, subject, body, s);
+        MessageDAO.updateMessage(user, to, subject, body, s, id);
         response.sendRedirect("myMessage.jsp");
     }
 

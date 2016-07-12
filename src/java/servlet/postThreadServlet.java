@@ -5,7 +5,7 @@
  */
 package servlet;
 
-import dao.MessageDAO;
+import dao.InformationDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -18,8 +18,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author jesperlim
  */
-@WebServlet(name = "SendMessageServlet", urlPatterns = {"/SendMessageServlet"})
-public class SendMessageServlet extends HttpServlet {
+@WebServlet(name = "postThreadServlet", urlPatterns = {"/postThreadServlet"})
+public class postThreadServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,18 +33,19 @@ public class SendMessageServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-        String to = request.getParameter("to");
-        String subject = request.getParameter("subject");
-        String body = request.getParameter("body");
-        String user = request.getParameter("user");
-        String status = request.getParameter("status");
-        boolean s = true;
-        if(status.equals("false")){
-            s = false;
+        String title = request.getParameter("title");
+        String username = request.getParameter("username");
+        String information_string = request.getParameter("information_string");
+
+        String id = request.getParameter("id");
+        if (id != null) {
+            int info_id = Integer.parseInt(id);
+            InformationDAO.addInformationById(title, username, information_string, info_id);
+        } else {
+            InformationDAO.addInformation(title, username, information_string);
         }
-        MessageDAO.addMessage(user, to, subject, body, s);
-        response.sendRedirect("myMessage.jsp");
+
+        response.sendRedirect("informationSharing.jsp");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

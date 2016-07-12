@@ -138,7 +138,7 @@
                         <p>Feedback on the website and let us serve you better!</p>
                     </div>
                     <div class="col-md-4">
-                        <a class="btn btn-lg btn-default btn-block btn-info" href="#">Information Sharing!</a>
+                        <a class="btn btn-lg btn-default btn-block btn-info" href="informationSharing.jsp">Information Sharing!</a>
                     </div>
                 </div>
             </div>
